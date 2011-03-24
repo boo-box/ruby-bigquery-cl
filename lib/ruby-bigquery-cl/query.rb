@@ -11,20 +11,20 @@ module Boo
         # adicionando o ; no final da linha caso nao tenha sido
         sql += ";" if not sql.end_with?(';')
 
-        response = nil
         headers  = {
           "Content-Type"  => "application/x-www-form-urlencoded",
           "Authorization" => "GoogleLogin auth=#{@token}"
         }
+
         # URL
-        uri = "https://www.googleapis.com/bigquery/v1/query?q=#{CGI.escape(sql)}"
-        uri = URI.parse(uri)
+        uri = URI.parse("https://www.googleapis.com/bigquery/v1/query?q=#{CGI.escape(sql)}")
 
         # Google APIs
-        http_host = Net::HTTP.new(host='www.googleapis.com', port=443)
-        http_host.use_ssl = true
+        http = Net::HTTP.new(uri.host, uri.port)
+        http.use_ssl = true
 
-        http_host.start do |http|
+        response = nil
+        http.start do |http|
           response = http.get(uri.path + "?" + uri.query, headers)
         end
 
