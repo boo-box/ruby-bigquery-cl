@@ -6,6 +6,7 @@ require 'json'
 
 require File.join(File.expand_path(File.dirname(__FILE__)), 'ruby-bigquery-cl', 'http')
 require File.join(File.expand_path(File.dirname(__FILE__)), 'ruby-bigquery-cl', 'query')
+require File.join(File.expand_path(File.dirname(__FILE__)), 'ruby-bigquery-cl', 'import')
 
 $:.unshift(File.dirname(__FILE__)) unless
   $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))

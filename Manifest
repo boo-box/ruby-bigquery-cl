@@ -1,4 +1,5 @@
 History.txt
+Manifest
 Manifest.txt
 PostInstall.txt
 README.rdoc
@@ -6,7 +7,7 @@ README.txt
 Rakefile
 lib/ruby-bigquery-cl.rb
 lib/ruby-bigquery-cl/http.rb
+lib/ruby-bigquery-cl/import.rb
 lib/ruby-bigquery-cl/query.rb
 test/test_helper.rb
 test/test_ruby-bigquery-cl.rb
-Manifest
