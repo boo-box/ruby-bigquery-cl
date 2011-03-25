@@ -28,7 +28,11 @@ module Boo
           response = http.get(uri.path + "?" + uri.query, headers)
         end
 
-        @result = JSON.parse(response.body)
+        if response.class == Net::HTTPOK
+          @result = JSON.parse(response.body)
+        else
+          response.error!
+        end
       end
 
       def result
