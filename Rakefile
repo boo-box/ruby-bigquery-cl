@@ -16,3 +16,11 @@ Dir["#{File.dirname(__FILE__)}/tasks/*.rake"].sort.each { |ext| load ext }
 
 # init.rb
 require 'lib/ruby-bigquery-cl.rb'
+
+namespace :spec do
+  desc "Run all specs"
+  Spec::Rake::SpecTask.new('spec') do |t|
+    t.spec_files = FileList['spec/**/*_spec.rb']
+    t.spec_opts = ['--options', 'spec/spec.opts']
+  end
+end
