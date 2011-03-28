@@ -6,8 +6,8 @@ require 'echoe'
 Echoe.new('ruby-bigquery-cl', '0.1.0') do |p|
   p.description    = "Client for Google BigQuery service"
   p.url            = "http://github.com/mandrakez/ruby-bigquery-cl"
-  p.author         = "Douglas Rafael Roeder"
-  p.email          = "douglasroeder@gmail.com"
+  p.author         = "boo-box"
+  p.email          = "douglas@boo-box.com"
   p.ignore_pattern = ["tmp/*", "script/*"]
   p.development_dependencies = []
 end
