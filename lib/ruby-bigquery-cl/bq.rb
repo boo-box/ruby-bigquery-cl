@@ -11,6 +11,8 @@ module BQ
       @@config
     end
 
+    # This method connect to bigquery and make all API REST calls
+    # to execute table management, import request, and query methods.
     def request(method, data, url=nil)
       results = {}
 
@@ -22,26 +24,28 @@ module BQ
         headers["Content-Type"] = "application/json"
       end
 
-      # URL
+      # If url is not defined use the RPC url
       if not url.nil?
         uri = URI.parse(url)
       else
         uri = URI.parse("https://www.googleapis.com/rpc")
       end
 
-      # Google APIs
+      # Create a http object (always use ssl)
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
 
       response = nil
       http.start do |http|
         case method
+        when :get
+          response = http.get(uri.path, data, headers)
         when :post
           response = http.post(uri.path, data, headers)
         when :delete
           response = http.delete(uri.path, headers)
-        when :get
-          response = http.get(uri.path, data, headers)
+        else
+          raise NotImplementedError
         end
       end
 
@@ -49,13 +53,14 @@ module BQ
       when Net::HTTPOK
         results = JSON.parse(response.body)
       when Net::HTTPNoContent
-        results = {'result' => nil}
+        # delete tables returns nothing
+        results = {}
       else
+        # otherwise raise an exception
         response.error!
       end
 
       return results
     end
   end
-
 end

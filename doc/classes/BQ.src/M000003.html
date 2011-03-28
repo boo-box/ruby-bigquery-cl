@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>request (BQ)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/ruby-bigquery-cl/bq.rb, line 16</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">request</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">data</span>, <span class="ruby-identifier">url</span>=<span class="ruby-keyword kw">nil</span>)
+      <span class="ruby-identifier">results</span> = {}
+
+      <span class="ruby-identifier">headers</span>  = {
+        <span class="ruby-value str">&quot;Authorization&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;GoogleLogin auth=#{self.config[:token]}&quot;</span>
+      }
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">method</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:post</span>
+        <span class="ruby-identifier">headers</span>[<span class="ruby-value str">&quot;Content-Type&quot;</span>] = <span class="ruby-value str">&quot;application/json&quot;</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-comment cmt"># If url is not defined use the RPC url</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">url</span>.<span class="ruby-identifier">nil?</span>
+        <span class="ruby-identifier">uri</span> = <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">url</span>)
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-identifier">uri</span> = <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-value str">&quot;https://www.googleapis.com/rpc&quot;</span>)
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-comment cmt"># Create a http object (always use ssl)</span>
+      <span class="ruby-identifier">http</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">host</span>, <span class="ruby-identifier">uri</span>.<span class="ruby-identifier">port</span>)
+      <span class="ruby-identifier">http</span>.<span class="ruby-identifier">use_ssl</span> = <span class="ruby-keyword kw">true</span>
+
+      <span class="ruby-identifier">response</span> = <span class="ruby-keyword kw">nil</span>
+      <span class="ruby-identifier">http</span>.<span class="ruby-identifier">start</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">http</span><span class="ruby-operator">|</span>
+        <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">method</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:get</span>
+          <span class="ruby-identifier">response</span> = <span class="ruby-identifier">http</span>.<span class="ruby-identifier">get</span>(<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">path</span>, <span class="ruby-identifier">data</span>, <span class="ruby-identifier">headers</span>)
+        <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:post</span>
+          <span class="ruby-identifier">response</span> = <span class="ruby-identifier">http</span>.<span class="ruby-identifier">post</span>(<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">path</span>, <span class="ruby-identifier">data</span>, <span class="ruby-identifier">headers</span>)
+        <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:delete</span>
+          <span class="ruby-identifier">response</span> = <span class="ruby-identifier">http</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">path</span>, <span class="ruby-identifier">headers</span>)
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">NotImplementedError</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">response</span>.<span class="ruby-identifier">class</span>
+      <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTPOK</span>
+        <span class="ruby-identifier">results</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">response</span>.<span class="ruby-identifier">body</span>)
+      <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTPNoContent</span>
+        <span class="ruby-comment cmt"># delete tables returns nothing</span>
+        <span class="ruby-identifier">results</span> = {}
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-comment cmt"># otherwise raise an exception</span>
+        <span class="ruby-identifier">response</span>.<span class="ruby-identifier">error!</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">results</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

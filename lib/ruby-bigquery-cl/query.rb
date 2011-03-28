@@ -1,18 +1,24 @@
 module BQ
+
+  # This can be used to send a query.
+
   class Query
 
+    # This method execute a query in a table.
+    # Call this method with a "query_string" like:
+    # "SELECT count(*) from [examplebucket/tables/ponylist] WHERE is_magic = true;"
+    # A hash is returned with the API response.
     def execute(sql)
-      # adicionando o ; no final da linha caso nao tenha sido
+      # Add a ";" if it's missing
       sql += ";" if not sql.end_with?(';')
 
-      # URL
-      data   = {:params => {:q => sql}, :method => 'bigquery.query'}
+      # Use a remote procedure call (RPC) to query
+      data = {:params => {:q => sql}, :method => 'bigquery.query'}
 
-      # response from google
+      # Send a query request
       result = BQ.request(:post, data.to_json)
 
       return result
     end
-
   end
 end

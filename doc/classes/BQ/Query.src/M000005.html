@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>execute (BQ::Query)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/ruby-bigquery-cl/query.rb, line 11</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">execute</span>(<span class="ruby-identifier">sql</span>)
+      <span class="ruby-comment cmt"># Add a &quot;;&quot; if it's missing</span>
+      <span class="ruby-identifier">sql</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;;&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">sql</span>.<span class="ruby-identifier">end_with?</span>(<span class="ruby-value str">';'</span>)
+
+      <span class="ruby-comment cmt"># Use a remote procedure call (RPC) to query</span>
+      <span class="ruby-identifier">data</span> = {<span class="ruby-identifier">:params</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-identifier">:q</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">sql</span>}, <span class="ruby-identifier">:method</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'bigquery.query'</span>}
+
+      <span class="ruby-comment cmt"># Send a query request</span>
+      <span class="ruby-identifier">result</span> = <span class="ruby-constant">BQ</span>.<span class="ruby-identifier">request</span>(<span class="ruby-identifier">:post</span>, <span class="ruby-identifier">data</span>.<span class="ruby-identifier">to_json</span>)
+
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">result</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

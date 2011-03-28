@@ -1,11 +1,16 @@
 module BQ
+
+  # This class can be used check the status of an import request.
+
   class ImportStatus
+    # Check a table's import status
+    # A hash is returned as the API response.
     def initialize(table,import_id)
-      data = {
-        :method => 'bigquery.imports.get',
-        :params => {:table_name => table, :import_id => import_id}
-      }
-      result = BQ.request(:post, data.to_json)
+      # Encode destination table name
+      url = "https://www.googleapis.com/bigquery/v1/tables/#{CGI.escape(table)}/imports/#{import_id}"
+
+      # Send data import request
+      result = BQ.request(:post, {}, url)
 
       return result
     end
