@@ -1,29 +1,75 @@
 = ruby-bigquery-cl
 
 * http://github.com/boo-box/ruby-bigquery-cl
+Ruby BQ is a client for Ruby to interact with Google BigQuery services. 
 
-== DESCRIPTION:
-
-Client for Google BigQuery services
-
-== FEATURES/PROBLEMS:
+=== Features/Problems
 
 * can execute queries
+* can create tables
+* can delete tables
+* can import data
 
-== SYNOPSIS:
+For bug feedback, please use Github Issues and let us know!
 
-  api = Boo::Google::Query.new(TOKEN)
-  api.execute_query("select count(*) from [bigquery/samples/table];")
+=== Installation:
 
-== INSTALL:
+3 little steps:
 
-* sudo gem install ruby-bigquery-cl
-or
-* git clone git@github.com:boo-box/ruby-bigquery-cl.git
-* cd ruby-bigquery-cl
-* rake install
+    git clone git@github.com:boo-box/ruby-bigquery-cl.git
+    cd ruby-bigquery-cl
+    rake install
 
-== LICENSE:
+=== Basic Usage:
+
+Here's a basic walkthrough to present the main features of this gem.
+
+First of all, let's require this gem in our code:
+
+    require 'ruby-bigquery-cl'
+
+Then, we must setup our BigQuery token to allow access to service:
+
+    BQ.setup do |config|
+      config[:token] = 'HERE-GOES-YOUR-TOKEN'
+    end
+
+Assuming that you already has a table created and populated with your dataset, you can execute your queries with the Query object:
+
+    query = BQ::Query.new
+    result = query.execute('SELECT field FROM [bucket/table]')
+
+Now, we need another table! Create a new one is as simple as that:
+
+    BQ::Table.create('bucket/new_table', schema)
+
+The schema structure is described here:
+
+    schema = [
+        {:id" => "name", :type => "string", :mode => "REQUIRED"},
+        {:id" => "age", :type => "integer"},
+        {:id" => "weight", :type => "float"},
+        {:id" => "is_magic", :type => "boolean"}
+    ]
+
+
+To import some data to this new table, we'll do this:
+
+    BQ::Import.new('bucket/new_table', [file1.csv, file2.csv, file3.csv]
+
+Google BigQuery limits import data up to 1 GB. If we need a bigger dataset, we can split into multiple files and pass it as an array to the Import constructor.
+
+On the response of the import method there's an ID of the job being executed at Google BigQuery. Since there's a LOT of data being uploaded and processed, it takes some time to this operation to complete. In case we need to check the job status, we can look for it with the ID provided before:
+
+    BQ::ImportStatus.new('bucket/new_table', THE_JOB_ID)
+
+Last, we'll delete this table, since we don't need it anymore. We got it covered:
+
+    BQ::Table.delete('bucket/new_table')
+
+That was a quick walkthrough. In case you need more help, feel free to drop us a message at 
+
+=== License:
 
 (The MIT License)
 

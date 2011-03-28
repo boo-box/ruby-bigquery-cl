@@ -1,1 +1,16 @@
-Mon, 28 Mar 2011 20:22:05 -0300
+Mon, 28 Mar 2011 20:44:14 -0300
+./History.txt	Mon, 28 Mar 2011 15:24:25 -0300
+./lib/ruby-bigquery-cl/bq.rb	Mon, 28 Mar 2011 20:28:45 -0300
+./lib/ruby-bigquery-cl/import.rb	Mon, 28 Mar 2011 20:28:45 -0300
+./lib/ruby-bigquery-cl/import_status.rb	Mon, 28 Mar 2011 20:28:45 -0300
+./lib/ruby-bigquery-cl/query.rb	Mon, 28 Mar 2011 20:28:45 -0300
+./lib/ruby-bigquery-cl/table.rb	Mon, 28 Mar 2011 20:33:58 -0300
+./Manifest	Mon, 28 Mar 2011 15:24:25 -0300
+./Manifest.txt	Mon, 28 Mar 2011 15:24:25 -0300
+./PostInstall.txt	Mon, 28 Mar 2011 15:24:25 -0300
+./Rakefile	Mon, 28 Mar 2011 15:24:25 -0300
+./README.rdoc	Mon, 28 Mar 2011 20:43:06 -0300
+./README.txt	Mon, 28 Mar 2011 15:24:25 -0300
+./script/console	Mon, 28 Mar 2011 15:24:25 -0300
+./script/destroy	Mon, 28 Mar 2011 15:24:25 -0300
+./script/generate	Mon, 28 Mar 2011 15:24:25 -0300
