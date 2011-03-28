@@ -6,7 +6,7 @@ module BQ
       sql += ";" if not sql.end_with?(';')
 
       # URL
-      data   = { :params => {:q => sql}, :method => 'bigquery.query'}
+      data   = {:params => {:q => sql}, :method => 'bigquery.query'}
 
       # response from google
       result = BQ.request(:post, data.to_json)

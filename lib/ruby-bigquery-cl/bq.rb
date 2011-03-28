@@ -11,7 +11,7 @@ module BQ
       @@config
     end
 
-    def request(method, data)
+    def request(method, data, url=nil)
       results = {}
 
       headers  = {
@@ -23,7 +23,11 @@ module BQ
       end
 
       # URL
-      uri = URI.parse("https://www.googleapis.com/rpc")
+      if not url.nil?
+        uri = URI.parse(url)
+      else
+        uri = URI.parse("https://www.googleapis.com/rpc")
+      end
 
       # Google APIs
       http = Net::HTTP.new(uri.host, uri.port)
@@ -31,11 +35,21 @@ module BQ
 
       response = nil
       http.start do |http|
-        response = http.post(uri.path, data, headers)
+        case method
+        when :post
+          response = http.post(uri.path, data, headers)
+        when :delete
+          response = http.delete(uri.path, headers)
+        when :get
+          response = http.get(uri.path, data, headers)
+        end
       end
 
-      if response.class == Net::HTTPOK
+      case response.class
+      when Net::HTTPOK
         results = JSON.parse(response.body)
+      when Net::HTTPNoContent
+        results = {'result' => nil}
       else
         response.error!
       end

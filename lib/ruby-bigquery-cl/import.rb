@@ -1,35 +1,17 @@
 module BQ
   class Import
-    def initialize(table,sources)
-      table.gsub!('/','%2F')
+    def initialize(table, sources)
+      url = "https://www.googleapis.com/bigquery/v1/tables/#{CGI.escape(table)}/imports"
 
-      data = {"data" => {"sources" => []}}
+      data = {:data => {:sources => []}}
       sources.to_a.each do |source|
-       data["data"]["sources"] << {"uri" => source}
+        data[:data][:sources] << {:uri => CGI.escape(source)}
       end
 
-      headers  = {
-        "Content-Type"  => "application/json",
-        "Authorization" => "GoogleLogin auth=#{@token}"
-      }
+      # response from google
+      result = BQ.request(:post, data.to_json, url)
 
-      # URL
-      uri = URI.parse("https://www.googleapis.com/bigquery/v1/tables/#{table}/imports")
-
-      # Google APIs
-      http = Net::HTTP.new(uri.host, uri.port)
-      http.use_ssl = true
-
-      response = nil
-      http.start do |http|
-        response = http.post(uri.path, data.to_json, headers)
-      end
-
-      if response.class == Net::HTTPOK
-        return JSON.parse(response.body)
-      else
-        response.error!
-      end
+      return result
     end
   end
 end
