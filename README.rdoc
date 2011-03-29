@@ -46,10 +46,10 @@ Now, we need another table! Create a new one is as simple as that:
 The schema structure is described here:
 
     schema = [
-        {:id" => "name", :type => "string", :mode => "REQUIRED"},
-        {:id" => "age", :type => "integer"},
-        {:id" => "weight", :type => "float"},
-        {:id" => "is_magic", :type => "boolean"}
+        {:id => "name", :type => "string", :mode => "REQUIRED"},
+        {:id => "age", :type => "integer"},
+        {:id => "weight", :type => "float"},
+        {:id => "is_magic", :type => "boolean"}
     ]
 
 
@@ -67,7 +67,7 @@ Last, we'll delete this table, since we don't need it anymore. We got it covered
 
     BQ::Table.delete('bucket/new_table')
 
-That was a quick walkthrough. In case you need more help, feel free to drop us a message at 
+That was a quick walkthrough. In case you need more help, feel free to drop us a message at tech@boo-box.com
 
 === License:
 
