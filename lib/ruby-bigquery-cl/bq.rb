@@ -49,10 +49,9 @@ module BQ
         end
       end
 
-      case response.class
-      when Net::HTTPOK
+      if response.code_type == Net::HTTPOK
         results = JSON.parse(response.body)
-      when Net::HTTPNoContent
+      elsif response.code_type == Net::HTTPNoContent
         # delete tables returns nothing
         results = {}
       else
