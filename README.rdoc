@@ -55,7 +55,7 @@ The schema structure is described here:
 
 To import some data to this new table, we'll do this:
 
-    BQ::Import.new('bucket/new_table', [file1.csv, file2.csv, file3.csv]
+    BQ::Import.new('bucket/new_table', ["file1.csv", "file2.csv", "file3.csv"])
 
 Google BigQuery limits import data up to 1 GB. If we need a bigger dataset, we can split into multiple files and pass it as an array to the Import constructor.
 
