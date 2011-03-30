@@ -18,9 +18,11 @@ module BQ
       end
 
       # Send data import request
-      result = BQ.request(:post, data.to_json, url)
+      @result = BQ.request(:post, data.to_json, url)
+    end
 
-      return result
+    def result
+      return @result
     end
   end
 end

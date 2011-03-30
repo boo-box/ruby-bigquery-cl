@@ -35,7 +35,7 @@ module BQ
         url = "https://www.googleapis.com/bigquery/v1/tables/#{CGI.escape(table)}"
 
         # Send table deletetion request
-        result = BQ.request(:delete, {}, url)
+        result = BQ.request(:delete, {}.to_json, url)
 
         return result
       end

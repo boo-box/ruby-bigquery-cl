@@ -8,7 +8,7 @@ describe "ImportStatus" do
     import_id = "cfa2a4b3c283d357"
 
     # check status
-    BQ.should_receive(:request).with(:post, {}, "https://www.googleapis.com/bigquery/v1/tables/#{CGI.escape(table)}/imports/#{import_id}").and_return(successful_return)
+    BQ.should_receive(:request).with(:get, {}.to_json, "https://www.googleapis.com/bigquery/v1/tables/#{CGI.escape(table)}/imports/#{import_id}").and_return(successful_return)
     import_status = BQ::ImportStatus.new(table,import_id)
   end
 end

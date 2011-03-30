@@ -39,7 +39,7 @@ module BQ
       http.start do |http|
         case method
         when :get
-          response = http.get(uri.path, data, headers)
+          response = http.get(uri.path, headers)
         when :post
           response = http.post(uri.path, data, headers)
         when :delete

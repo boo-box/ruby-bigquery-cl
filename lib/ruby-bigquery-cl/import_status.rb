@@ -10,9 +10,11 @@ module BQ
       url = "https://www.googleapis.com/bigquery/v1/tables/#{CGI.escape(table)}/imports/#{import_id}"
 
       # Send data import request
-      result = BQ.request(:post, {}, url)
+      @result = BQ.request(:get, {}.to_json, url)
+    end
 
-      return result
+    def result
+      return @result
     end
   end
 end

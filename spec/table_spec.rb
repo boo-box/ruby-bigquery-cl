@@ -23,7 +23,7 @@ describe "Table" do
 
   it "should permit delete table" do
     successful_response = {"result" => nil}
-    BQ.should_receive(:request).with(:delete, {}, "https://www.googleapis.com/bigquery/v1/tables/#{CGI.escape('table_name')}").and_return(successful_response) 
+    BQ.should_receive(:request).with(:delete, {}.to_json, "https://www.googleapis.com/bigquery/v1/tables/#{CGI.escape('table_name')}").and_return(successful_response) 
 
     result = BQ::Table.delete('table_name')
     result.has_key?('result').should be_true
