@@ -3,9 +3,9 @@ require 'rubygems'
 require 'rake'
 require 'echoe'
 
-Echoe.new('ruby-bigquery-cl', '0.1.0') do |p|
+Echoe.new('ruby-bigquery-cl', '0.2.0') do |p|
   p.description    = "Client for Google BigQuery service"
-  p.url            = "http://github.com/mandrakez/ruby-bigquery-cl"
+  p.url            = "http://github.com/boo-box/ruby-bigquery-cl"
   p.author         = "boo-box"
   p.email          = "douglas@boo-box.com"
   p.ignore_pattern = ["tmp/*", "script/*"]
