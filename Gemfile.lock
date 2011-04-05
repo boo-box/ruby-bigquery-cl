@@ -1,0 +1,16 @@
+PATH
+  remote: .
+  specs:
+    ruby-bigquery-cl (0.2.0)
+      json
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    json (1.5.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  ruby-bigquery-cl!
