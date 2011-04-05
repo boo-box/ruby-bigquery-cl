@@ -17,4 +17,6 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_runtime_dependency('json')
+
+  s.add_development_dependency('rspec', '1.3')
 end
