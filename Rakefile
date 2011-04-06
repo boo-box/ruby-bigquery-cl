@@ -1,6 +1,8 @@
 require 'bundler'
 Bundler.require :test
 
+Bundler::GemHelper.install_tasks
+
 # Bundler don't require rspec rake task
 require 'spec/rake/spectask'
 
