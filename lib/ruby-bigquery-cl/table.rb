@@ -1,4 +1,4 @@
-module BQ
+module BigQuery
 
   # This class can be used to create and delete tables.
 
@@ -23,7 +23,7 @@ module BQ
         }
 
         # Send table creation request
-        result = BQ.request(:post, data.to_json, url)
+        result = BigQuery.request(:post, data.to_json, url)
 
         return result
       end
@@ -35,7 +35,7 @@ module BQ
         url = "https://www.googleapis.com/bigquery/v1/tables/#{CGI.escape(table)}"
 
         # Send table deletetion request
-        result = BQ.request(:delete, {}.to_json, url)
+        result = BigQuery.request(:delete, {}.to_json, url)
 
         return result
       end
