@@ -7,8 +7,10 @@ PATH
 GEM
   remote: http://rubygems.org/
   specs:
+    addressable (2.2.4)
     archive-tar-minitar (0.5.2)
     columnize (0.3.2)
+    crack (0.1.8)
     diff-lcs (1.1.2)
     json (1.5.1)
     linecache (0.43)
@@ -31,6 +33,9 @@ GEM
       ruby-debug-base19 (>= 0.11.19)
     ruby_core_source (0.1.5)
       archive-tar-minitar (>= 0.5.2)
+    webmock (1.6.2)
+      addressable (>= 2.2.2)
+      crack (>= 0.1.7)
 
 PLATFORMS
   ruby
@@ -43,3 +48,4 @@ DEPENDENCIES
   ruby-bigquery-cl!
   ruby-debug
   ruby-debug19
+  webmock
