@@ -1,5 +1,4 @@
-require File.join(File.dirname(__FILE__), 'spec_helper')
-require 'ruby-debug'
+require 'spec_helper'
 
 describe "Import" do
   it "should import data from a single source table" do
