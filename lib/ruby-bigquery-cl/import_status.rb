@@ -1,8 +1,10 @@
-module BQ
+module BigQuery
 
   # This class can be used check the status of an import request.
 
   class ImportStatus
+    attr_reader :result
+
     # Check a table's import status
     # A hash is returned as the API response.
     def initialize(table,import_id)
@@ -11,10 +13,6 @@ module BQ
 
       # Send data import request
       @result = BQ.request(:get, {}.to_json, url)
-    end
-
-    def result
-      return @result
     end
   end
 end
