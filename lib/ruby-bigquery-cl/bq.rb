@@ -1,4 +1,4 @@
-module BQ
+module BigQuery
   class << self
     def setup
       yield self
@@ -64,3 +64,5 @@ module BQ
     end
   end
 end
+
+BQ = BigQuery
