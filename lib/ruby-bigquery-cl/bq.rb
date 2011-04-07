@@ -1,14 +1,15 @@
 module BQ
-
-  @@config = {}
-
   class << self
     def setup
-      yield @@config
+      yield self
     end
 
-    def config
-      @@config
+    def token
+      @@token
+    end
+
+    def token=(val)
+      @@token = val
     end
 
     # This method connect to bigquery and make all API REST calls
