@@ -1,10 +1,11 @@
-class Net::HTTP #:nodoc: all
-  alias_method :old_initialize, :initialize
+module BigQuery
+  class HTTP < Net::HTTP #:nodoc: all
+    # Use ssl for all http requests
+    def initialize(*args)
+      super(*args)
 
-  # Use ssl for all http requests
-  def initialize(*args)
-    old_initialize(*args)
-    @ssl_context = OpenSSL::SSL::SSLContext.new
-    @ssl_context.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      @ssl_context = OpenSSL::SSL::SSLContext.new
+      @ssl_context.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    end
   end
 end

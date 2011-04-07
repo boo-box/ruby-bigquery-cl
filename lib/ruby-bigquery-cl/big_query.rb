@@ -33,7 +33,7 @@ module BigQuery
       end
 
       # Create a http object (always use ssl)
-      http = Net::HTTP.new(uri.host, uri.port)
+      http = BigQuery::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
 
       response = nil
