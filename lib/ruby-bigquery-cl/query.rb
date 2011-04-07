@@ -1,4 +1,4 @@
-module BQ
+module BigQuery
 
   # This can be used to send a query.
 
@@ -15,10 +15,8 @@ module BQ
       # Use a remote procedure call (RPC) to query
       data = {:params => {:q => sql}, :method => 'bigquery.query'}
 
-      # Send a query request
-      result = BQ.request(:post, data.to_json)
-
-      return result
+      # Result a query request
+      return BigQuery.request(:post, data.to_json)
     end
   end
 end
