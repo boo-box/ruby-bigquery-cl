@@ -18,7 +18,7 @@ module BigQuery
       results = {}
 
       headers  = {
-        "Authorization" => "GoogleLogin auth=#{self.config[:token]}"
+        "Authorization" => "GoogleLogin auth=#{token}"
       }
 
       if method == :post
