@@ -1,5 +1,4 @@
 require File.join(File.dirname(__FILE__), 'spec_helper')
-require 'ruby-debug'
 
 describe "Table" do
 
