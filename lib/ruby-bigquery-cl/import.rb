@@ -14,7 +14,7 @@ module BQ
       # Create hash to generate a JSON object
       data = {:data => {:sources => []}}
       sources.to_a.each do |source|
-        data[:data][:sources] << {:uri => CGI.escape(source)}
+        data[:data][:sources] << {:uri => source}
       end
 
       # Send data import request
