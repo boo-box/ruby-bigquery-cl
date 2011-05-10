@@ -1,5 +1,5 @@
 require 'bundler'
-Bundler.require :test
+Bundler.setup(:default, :test)
 
 Bundler::GemHelper.install_tasks
 
